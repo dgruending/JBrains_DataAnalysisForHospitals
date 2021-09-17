@@ -10,11 +10,18 @@ import pandas as pd
 # 3.    Print the first 20 rows of each data frame. Use the following order: 'general', 'prenatal', 'sports'
 
 
+def read_all_test_files():
+    """
+    Read and return all test dataframes
+
+    :return: 'general' dataframe, 'prenatal' dataframe, 'sports' dataframe
+    """
+    return pd.read_csv("test/general.csv"), pd.read_csv("test/prenatal.csv"), pd.read_csv("test/sports.csv")
+
+
 def main():
     # to match the example output, one should use index_col=0, but that doesn't pass the test
-    general_df = pd.read_csv("test/general.csv")
-    prenatal_df = pd.read_csv("test/prenatal.csv")
-    sport_df = pd.read_csv("test/sports.csv")
+    general_df, prenatal_df, sport_df = read_all_test_files()
     print(general_df.head(20))
     print(prenatal_df.head(20))
     print(sport_df.head(20))
