@@ -1,3 +1,9 @@
+import pandas as pd
+
+from stage1 import read_all_test_files
+from stage2 import merge_cleanup
+from stage3 import improve_dataset
+
 # Stage 4/5:
 # Steps 1-8 are the same as steps 2-9 in the third stage.
 # Requirements:
@@ -28,4 +34,7 @@
 
 
 def main():
-    pass
+    general_df, prenatal_df, sports_df = read_all_test_files()
+    merged_df = merge_cleanup(general_df, prenatal_df, sports_df)
+    merged_df = improve_dataset(merged_df)
+    print("The answer to the 1st question is {}".format(merged_df['hospital'].value_counts().idxmax()))
