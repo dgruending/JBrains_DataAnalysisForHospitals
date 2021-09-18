@@ -1,13 +1,11 @@
-import pandas as pd
-
 # import stage1
 # import stage2
-import stage3
+# import stage3
+import stage4
 
 # call subroutine for current stage
 if __name__ == "__main__":
-    # As required for the tests
-    pd.set_option('display.max_columns', 8)
     # stage1.main()
     # stage2.main()
-    stage3.main()
+    # stage3.main()
+    stage4.main()

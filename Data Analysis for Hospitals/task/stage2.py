@@ -26,6 +26,8 @@ def merge_cleanup(general_df, prenatal_df, sports_df):
 
 
 def main():
+    # As required for the tests
+    pd.set_option('display.max_columns', 8)
     general_df, prenatal_df, sports_df = read_all_test_files()
     general_df = merge_cleanup(general_df, prenatal_df, sports_df)
     print(general_df.sample(n=20, random_state=30))

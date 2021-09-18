@@ -16,11 +16,13 @@ def read_all_test_files():
 
     :return: 'general' dataframe, 'prenatal' dataframe, 'sports' dataframe
     """
+    # to match the example output, one should use index_col=0, but that doesn't pass the test
     return pd.read_csv("test/general.csv"), pd.read_csv("test/prenatal.csv"), pd.read_csv("test/sports.csv")
 
 
 def main():
-    # to match the example output, one should use index_col=0, but that doesn't pass the test
+    # As required for the tests
+    pd.set_option('display.max_columns', 8)
     general_df, prenatal_df, sport_df = read_all_test_files()
     print(general_df.head(20))
     print(prenatal_df.head(20))

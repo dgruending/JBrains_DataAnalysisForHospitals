@@ -6,6 +6,7 @@ from stage2 import merge_cleanup
 
 # Stage 3/5: Improve your dataset
 # Steps 1-5 are identical to stage 2
+# Requirements:
 # 1.    After all the libraries imports write the following line of code:
 #       pd.set_option('display.max_columns', 8)
 # 2.    Read the CSV files with datasets
@@ -33,6 +34,8 @@ def improve_dataset(df):
 
 
 def main():
+    # As required for the tests
+    pd.set_option('display.max_columns', 8)
     general_df, prenatal_df, sports_df = read_all_test_files()
     merged_df = merge_cleanup(general_df, prenatal_df, sports_df)
     merged_df = improve_dataset(merged_df)
