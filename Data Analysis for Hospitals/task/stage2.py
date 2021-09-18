@@ -1,5 +1,7 @@
 import pandas as pd
 
+from stage1 import read_all_test_files
+
 # Stage 2/5: Merge them
 # Requirements:
 # 1.    After all the libraries imports write the following line of code:
@@ -14,4 +16,11 @@ import pandas as pd
 
 
 def main():
-    pass
+    general_df, prenatal_df, sports_df = read_all_test_files()
+    # Equalize column names
+    prenatal_df.rename(columns={'HOSPITAL': 'hospital', 'Sex': 'gender', }, inplace=True)
+    sports_df.rename(columns={'Hospital': 'hospital', 'Male/female': 'gender'}, inplace=True)
+    general_df = pd.concat([general_df, prenatal_df, sports_df], ignore_index=True)
+    # First column needs to be deleted this time
+    general_df.drop(columns=['Unnamed: 0'], inplace=True)
+    print(general_df.sample(n=20, random_state=30))

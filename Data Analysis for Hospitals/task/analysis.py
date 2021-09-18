@@ -1,6 +1,6 @@
 import pandas as pd
 
-import stage1
+# import stage1
 import stage2
 
 # call subroutine for current stage
