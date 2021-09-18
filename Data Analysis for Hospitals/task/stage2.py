@@ -15,12 +15,17 @@ from stage1 import read_all_test_files
 # 6.    Print random 20 rows of the resulting data frame. For the reproducible output set random_state=30
 
 
-def main():
-    general_df, prenatal_df, sports_df = read_all_test_files()
+def merge_cleanup(general_df, prenatal_df, sports_df):
     # Equalize column names
     prenatal_df.rename(columns={'HOSPITAL': 'hospital', 'Sex': 'gender', }, inplace=True)
     sports_df.rename(columns={'Hospital': 'hospital', 'Male/female': 'gender'}, inplace=True)
-    general_df = pd.concat([general_df, prenatal_df, sports_df], ignore_index=True)
+    merged_df = pd.concat([general_df, prenatal_df, sports_df], ignore_index=True)
     # First column needs to be deleted this time
-    general_df.drop(columns=['Unnamed: 0'], inplace=True)
+    merged_df.drop(columns=['Unnamed: 0'], inplace=True)
+    return merged_df
+
+
+def main():
+    general_df, prenatal_df, sports_df = read_all_test_files()
+    general_df = merge_cleanup(general_df, prenatal_df, sports_df)
     print(general_df.sample(n=20, random_state=30))
