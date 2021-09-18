@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from stage1 import read_all_test_files
 from stage2 import merge_cleanup
@@ -21,3 +22,19 @@ from stage2 import merge_cleanup
 # 10.   Print shape of the resulting data frame
 # 11.   Print random 20 rows of the resulting data frame. For the reproducible output set random_state=30
 
+
+def improve_dataset(df):
+    # Delete all rows considered by pandas empty
+    df.dropna(how='all', axis=0, inplace=True)
+    df['gender'] = df['gender'].replace(['female', 'woman', np.nan], 'f')
+    df['gender'] = df['gender'].replace(['male', 'man'], 'm')
+    df = df.fillna(0)
+    return df
+
+
+def main():
+    general_df, prenatal_df, sports_df = read_all_test_files()
+    merged_df = merge_cleanup(general_df, prenatal_df, sports_df)
+    merged_df = improve_dataset(merged_df)
+    print(merged_df.shape)
+    print(merged_df.sample(n=20, random_state=30))
