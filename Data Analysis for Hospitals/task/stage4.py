@@ -37,4 +37,23 @@ def main():
     general_df, prenatal_df, sports_df = read_all_test_files()
     merged_df = merge_cleanup(general_df, prenatal_df, sports_df)
     merged_df = improve_dataset(merged_df)
+
     print("The answer to the 1st question is {}".format(merged_df['hospital'].value_counts().idxmax()))
+
+    general_stomach_patients = merged_df[(merged_df.hospital == 'general') & (merged_df.diagnosis == 'stomach')].shape[0]
+    general_patients = merged_df[(merged_df.hospital == 'general')].shape[0]
+    print("The answer to the 2nd question is {}".format(round(general_stomach_patients / general_patients, 3)))
+
+    sports_dislocation_patients = merged_df[(merged_df.hospital == 'sports')
+                                       & (merged_df.diagnosis == 'dislocation')].shape[0]
+    sports_patients = merged_df[(merged_df.hospital == 'sports')].shape[0]
+    print("The answer to the 3rd question is {}".format(round(sports_dislocation_patients / sports_patients, 3)))
+
+    median_age_general = merged_df[merged_df.hospital == 'general']['age'].median()
+    median_age_sports = merged_df[merged_df.hospital == 'sports']['age'].median()
+    print("The answer to the 4th question is {}".format(median_age_general - median_age_sports))
+
+    blood_test_count_df = pd.pivot_table(merged_df[merged_df.blood_test == 't'], aggfunc='count',
+                                         index=['hospital'], values='blood_test')
+    print("The answer to the 5th question is {0}, {1} blood tests".format(blood_test_count_df.idxmax()['blood_test'],
+                                                                          blood_test_count_df.max()['blood_test']))
