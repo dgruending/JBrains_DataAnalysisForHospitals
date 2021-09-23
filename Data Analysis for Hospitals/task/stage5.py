@@ -1,3 +1,10 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from stage1 import read_all_test_files
+from stage2 import merge_cleanup
+from stage3 import improve_dataset
+
 # Stage 5/5: Visualize it!
 # Steps 1-8 are the same as in the previous stage.
 # Requirements:
@@ -28,5 +35,24 @@
 # >The answer to the 3rd question: It's because...
 
 
+def question_1(df):
+    df.plot(y="age", kind="hist", bins=[0, 15, 35, 55, 70, 80])
+    plt.savefig('question_1.jpg', bbox_inches='tight')
+
+    # Answer could be read from histogram and hardcoded, but a different approach is used
+    # Create a new Dataframe with the age bins and their corresponding count
+    age_bins_df = pd.DataFrame([df.loc[(df.age >= 0) & (df.age < 15), "age"].count(),
+                                df.loc[(df.age >= 15) & (df.age < 35), "age"].count(),
+                                df.loc[(df.age >= 35) & (df.age < 55), "age"].count(),
+                                df.loc[(df.age >= 55) & (df.age < 70), "age"].count(),
+                                df.loc[(df.age >= 70) & (df.age < 80), "age"].count()],
+                               index=["0 - 15", "15 - 35", "35 - 55", "55 - 70", "70 - 80"], columns=["count"])
+
+    print(f"The answer to the 1st question: {age_bins_df['count'].idxmax()}")
+
+
 def main():
-    pass
+    general_df, prenatal_df, sports_df = read_all_test_files()
+    merged_df = merge_cleanup(general_df, prenatal_df, sports_df)
+    df = improve_dataset(merged_df)
+    question_1(df)
