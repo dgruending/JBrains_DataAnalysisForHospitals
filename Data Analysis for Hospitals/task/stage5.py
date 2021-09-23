@@ -65,8 +65,7 @@ def question_2(df):
 
 
 def question_3(df):
-    fig, axes = plt.subplots()
-    sns.violinplot(y="height", data=df, axes=axes)
+    sns.violinplot(y="height", data=df)
     plt.savefig('question_3.jpg', bbox_inches='tight')
     plt.show()
     plt.clf()
