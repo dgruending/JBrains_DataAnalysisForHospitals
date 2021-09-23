@@ -39,6 +39,7 @@ from stage3 import improve_dataset
 def question_1(df):
     df.plot(y="age", kind="hist", bins=[0, 15, 35, 55, 70, 80])
     plt.savefig('question_1.jpg', bbox_inches='tight')
+    plt.show()
     plt.clf()
 
     # Answer could be read from histogram (15 - 35) and hardcoded, but a different approach is used
@@ -56,6 +57,7 @@ def question_1(df):
 def question_2(df):
     df.groupby("diagnosis").size().plot(kind="pie")
     plt.savefig('question_2.jpg', bbox_inches='tight')
+    plt.show()
     plt.clf()
 
     # Pie chart shows pregnancy as most common diagnosis
@@ -66,6 +68,7 @@ def question_3(df):
     fig, axes = plt.subplots()
     sns.violinplot(y="height", data=df, axes=axes)
     plt.savefig('question_3.jpg', bbox_inches='tight')
+    plt.show()
     plt.clf()
 
     print("The answer to the 3rd question: It's because the height is measured in meter for general and prenatal, "
