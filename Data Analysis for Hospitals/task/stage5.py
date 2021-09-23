@@ -1,5 +1,6 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 from stage1 import read_all_test_files
 from stage2 import merge_cleanup
@@ -38,8 +39,9 @@ from stage3 import improve_dataset
 def question_1(df):
     df.plot(y="age", kind="hist", bins=[0, 15, 35, 55, 70, 80])
     plt.savefig('question_1.jpg', bbox_inches='tight')
+    plt.clf()
 
-    # Answer could be read from histogram and hardcoded, but a different approach is used
+    # Answer could be read from histogram (15 - 35) and hardcoded, but a different approach is used
     # Create a new Dataframe with the age bins and their corresponding count
     age_bins_df = pd.DataFrame([df.loc[(df.age >= 0) & (df.age < 15), "age"].count(),
                                 df.loc[(df.age >= 15) & (df.age < 35), "age"].count(),
@@ -51,8 +53,29 @@ def question_1(df):
     print(f"The answer to the 1st question: {age_bins_df['count'].idxmax()}")
 
 
+def question_2(df):
+    df.groupby("diagnosis").size().plot(kind="pie")
+    plt.savefig('question_2.jpg', bbox_inches='tight')
+    plt.clf()
+
+    # Pie chart shows pregnancy as most common diagnosis
+    print(f"The answer to the 2nd question: {df['diagnosis'].value_counts().idxmax()}")
+
+
+def question_3(df):
+    fig, axes = plt.subplots()
+    sns.violinplot(y="height", data=df, axes=axes)
+    plt.savefig('question_3.jpg', bbox_inches='tight')
+    plt.clf()
+
+    print("The answer to the 3rd question: It's because the height is measured in meter for general and prenatal, "
+          "but in feet for sports.")
+
+
 def main():
     general_df, prenatal_df, sports_df = read_all_test_files()
     merged_df = merge_cleanup(general_df, prenatal_df, sports_df)
     df = improve_dataset(merged_df)
     question_1(df)
+    question_2(df)
+    question_3(df)
